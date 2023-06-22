@@ -1,0 +1,486 @@
+>>>>>>>>>>>>
+
+Cloud vs not cloud/onprem:
+
+>>>>>>>>>>>>>>
+
+
+cisco cloud services routers:
+cloud computing = virtulized
+
+ctrl + alt to exit the vmware
+rivanlinux rdt:
+root
+C1sco0123
+
+command in vmware:
+
+
+#rm -r /etc/udev/rules.d/70(presstab)
+#enter
+#reboot
+
+192.168.101.132/24
+
+
+...................
+
+
+
+
+give statis add to p1 and p2:
+
+>>>>>>>>>>>>
+
+Cloud vs not cloud/onprem:
+
+>>>>>>>>>>>>>>
+
+
+cisco cloud services routers:
+cloud computing = virtulized
+
+ctrl + alt to exit the vmware
+rivanlinux rdt:
+root
+C1sco0123
+
+command in vmware:
+
+
+#rm -r /etc/udev/rules.d/70(presstab)
+#enter
+#reboot
+
+go to browser, input the ip on the vmaware kapag wala yung ip input the command #ip addr sa dulo)
+RSTVX(SECOND row)
+> DEVICES
+> CLICK UNA to start. click yung green
+
+
+192.168.101.130/24
+
+
+...................
+
+
+
+
+give statis add to p1 and p2:
+
+
+
+
+static routing on p1:exam qa
+
+
+#sh ip int br > to get ip
+#sh ip route | i C > to get network
+
+192.168.1.128/27
+
+
+HOW TO CREATE STATCI ROUTE
+@P1
+#conf t
+#ip route 192.168.1.129 255.255.255.255 10.2.1.1
+ip route 192.168.1.128 255.255.255.254 10.2.1.2
+
+
+@P2
+#conf t
+#ip route 192.168.1.129 255.255.255.255 10.2.1.2
+ip route 192.168.1.128 255.255.255.254 10.2.1.1
+
+sh ip route
+
+
+
+...........
+
+dafaulit routing and devices
+
+#route print
+
+How to StaticRoute Cisco/PC/EndDevices:
+p1:
+config t
+ip route 0.0.0.0  0.0.0.0 10.2.1.1
+do sh ip route static
+
+
+p2:
+config T
+ip route 0.0.0.0  0.0.0.0 10.2.1.2
+do sh ip route static
+
+ergip basic:
+conf t
+router eigrp 100
+no auto-summary
+network 10.0.0.0
+
+
+.......................
+
+d1:eigrp
+
+D1:
+config t
+router eigrp 100
+ no auto-summary
+ network 10.1.4.4 0.0.0.3
+ network 10.2.1.0 0.0.0.255
+ network 10.2.2.0 0.0.0.255
+ network 192.168.1.128 0.0.0.31
+end
+
+
+
+
+...................
+
+task 5
+how to check eigrp is working
+
+command:
+sh ip protocol > tama ba ang natype mo?
+sh ip eigrp traffic > palpak ba ang eigrp mo?
+		  (ito yung mnga need mo dapat icheck. dapat 0/0 yan )
+		  SIA-Queries sent/received: 0/0
+		  SIA-Replies sent/received: 0/0
+sh ip eigrp topology > na share ba lahat?
+sh ip route eigrp > na gets mo ba?
+
+
+
+
+...................
+
+
+
+task 6:
+real world ospf config
+
+
+
+Core baba sw:
+command:
+conf t
+router ospf 1
+network 10.41.1.0 0.0.0.255 area 0
+end
+
+...........................
+
+
+ospf states
+down - 0%
+Init - 20%
+2 way -30
+exstart -50
+exchange 70
+loading -80
+full -100% working
+
+
+..............
+
+task 7: route redistribution
+@R4 IPASOK EIGRP SA OSPF
+
+conf t
+router ospf 1
+redistribute eigrp 100 subnets
+
+>>>>
+
+ Eigrp and Ospf Redistribution:
+R4: sikat: Eigrp and OSPF world:
+config t
+router eigrp 100
+redistribute ospf 1 metric 10000 100 255 1 1500
+ exit
+router ospf 1
+redistribute eigrp 100 subnets
+end
+.......................
+
+
+
+r1
+209.9.9.3 3
+207.7.7.2 2
+208.8.8.4 45
+
+isp1:
+45.4.5.5 45
+24.2.4.2 2
+208.8.8.1 1
+
+isp2:
+
+25.2.5.5
+32.3.2.3
+207.7.7.1
+24.2.4.4
+
+isp3:
+35.3.5.5
+32.3.2.2
+209.9.9.1
+
+
+isp 4
+35.3.5.3
+25.2.5.2
+45.4.5.4
+
+
+......................
+
+
+
+task 9
+
+advance bgp 
+
+
+
+used bgp path manipulation to force customer to used other telco
+
+ISP1/PLDT
+
+conf t
+route-map wagako permit 10
+set as-path prepend 45 45 45 45
+exit
+router bgp 45
+neighbor 208.8.8.1 route-map wagako out
+do clear ip bgp * soft
+end
+
+ISP2/dito
+
+conf t
+route-map notdito permit 10
+set as-path prepend 2 2 2 2
+exit
+router bgp 2
+neighbor 207.7.7.1 route-map notdito out
+do clear ip bgp * soft
+end
+
+
+...............
+
+
+why ospf and bgp are beftrined
+
+cpmmand:
+conf t
+router ospf 1
+default-information originate
+
+
+......................
+
+
+task 11
+
+real world vs cloudbased
+
+
+mas mahirap ang real cisco: you vs other people
+cloud router: you vs you
+
+how to get asap: 
+
+! factory reset command:
+conf t
+no ip routing
+ip routing 
+end
+
+
+>>
+configure ospf on real devices
+sw:
+conf t
+router ospf 1
+network 10.41.1.0 0.0.0.255 area 0
+network 10.41.10.0 0.0.0.255 area 0
+network 10.41.50.0 0.0.0.255 area 0
+network 10.41.100.0 0.0.0.255 area 0
+network 10.41.41.0 0.0.0.255 area 0
+do sh ip ospf nei
+
+
+edge:
+conf t
+router ospf 1
+network 200.0.0.0 0.0.0.255 area 0
+network 10.41.41.0 0.0.0.255 area 0
+network 41.0.0.1 0.0.0.0 area 0
+
+cucm:
+conf t
+ip route 0.0.0.0 0.0.0.0 10.41.100.4
+
+....................
+
+
+
+task 12
+use bgp to connect other classmate
+
+edge:
+conf t
+router bgp 41
+bgp log-neighbor-changes
+bgp router-id 41.0.0.1
+neighbor 200.0.0.11 remote 11
+neighbor 200.0.0.12 remote 12
+neighbor 200.0.0.21 remote 21
+neighbor 200.0.0.22 remote 22
+neighbor 200.0.0.31 remote 31
+neighbor 200.0.0.32 remote 32
+neighbor 200.0.0.42 remote 42
+neighbor 200.0.0.51 remote 51
+neighbor 200.0.0.62 remote 62
+neighbor 10.41.41.4 remote-as 41
+network 10.41.41.0 mask 255.255.255.0
+
+
+
+coresw:
+conf t
+router bgp 41
+neighbor 10.41.41.1 remote-as 41
+network 10.41.1.0 mask 255.255.255.0
+network 10.41.100.0 mask 255.255.255.0
+network 10.41.10.0 mask 255.255.255.0
+network 10.41.41.0 mask 255.255.255.0
+
+
+
+..................
+
+
+task 13
+
+
+10% of total score sa exma
+7/10 sa job interview:
+
+
+
+............
+
+
+how to hack layes 5.session layer to steal the pass of your boss
+
+command:
+swicth:
+
+conf t
+no enable secret pass
+username admin privilege 15 secret pass
+line vty 0 14
+login local
+
+open wirehark> open cmd > 
+command:
+telnet 10.41.1.4
+us: 
+
+
+.............
+
+
+task 15
+
+
+
+protecting data with vpn
+vpn:
+tunneling
+encryption
+hashing
+
+what is hashing: data is garateed to be original/unchanged
+
+
+............
+
+
+encryp cisco data with ssh encryp
+(this command give cred question on seccrt (ssh2)
+sw:
+coommand:
+conf t
+ip domain-name rivanit.com
+crypto key generate rsa
+(is ask is 512 put 1024)
+!after generate!
+
+ip ssh version 2
+
+
+
+.............................
+
+
+
+vpn
+
+for Site_japan:
+conf t
+no logging console
+no ip domain-lookup
+int gi 1
+ip add dhcp
+no shut
+
+
+for Site_B:
+conf t
+no logging console
+no ip domain-lookup
+int gi 1
+ip add dhcp
+no shut
+
+
+>>>after maopen yung nagpakitang ip sa vmaware, ilalagay sa seccrt, then this>>>
+
+japan:
+
+conf t
+int gi 2
+ip add 192.168.102.1 255.255.255.0
+no shut
+
+conf t
+int gi 3
+ip add 10.10.10.1 255.255.255.0
+no shut
+
+siteB:
+
+conf t
+int gi 2
+ip add 192.168.102.2 255.255.255.0
+no shut
+
+conf t
+int gi 3
+ip add 10.20.20.1 255.255.255.0
+no shut
+
+
+>>>>after maopen sa browser yu;ng ip
+
+
+ip route 0.0.0.0 0.0.0.0 192.168.102.2
+
